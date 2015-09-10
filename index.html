@@ -1,0 +1,62 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta charset="utf-8">
+<title>FormularioApp</title>
+<link href="jquery-mobile/jquery.mobile-1.0.min.css" rel="stylesheet" type="text/css" />
+<script src="jquery-mobile/jquery-1.6.4.min.js" type="text/javascript"></script>
+<script src="jquery-mobile/jquery.mobile-1.0.min.js" type="text/javascript"></script>
+<script src="js/bbdd.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=0" />
+</head> 
+<body> 
+<div data-role="page" id="inicio">
+	<div data-role="header">
+		<h1>Formulario de contacto</h1>
+	</div>
+	<div data-role="content">		
+    	<div id="contactos">
+        	<p>No hay datos disponibles</p>
+            <br>
+            <a href="#ingreso">Añadir</a>
+       	</div>
+	</div>
+    
+	<div data-role="footer">
+		<h4>FormularioApp2015</h4>
+	</div>
+</div>
+<div data-role="page" id="ingreso">
+	<div data-role="header">
+		<h1>Formulario de contacto</h1>
+	</div>
+	<div data-role="content">		
+    	<form id="formulario">
+        	<fieldset>
+            	<legend>Nombre y correo</legend>
+                <ol>
+                	<li>
+                    	<label for="username">Nombre</label>
+                        <input id="username" type="text" placeholder="Nombre y apellidos" required autofocus />
+                        <input type="hidden" id="id" />
+					</li>
+                	<li>
+                    	<label for="useremail">Correo</label>
+                        <input type="usermail" type="text" placeholder="example@domain.com" required />
+                    </li>
+                </ol>
+            </fieldset> 
+            <button id="btnRecargar" type="submit">Recargar</button>
+            <button id="btnGuardar" type="submit">Guardar</button>
+            <button id="btnActualizar" type="submit">Actualizar</button>
+            <button id="btnBorrar" type="submit">Borrar Datos</button>
+        </form>
+	</div>
+    <div id="contactos"></div>
+	<div data-role="footer">
+		<h4>FormularioApp2015</h4>
+	</div>
+</div>
+</body>
+</html>
