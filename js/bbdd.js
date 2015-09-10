@@ -97,20 +97,21 @@ function recargar() {
 
 function cargarContactos() {
     $("#contactos").html('');
-	var linkeditdelete;
     db.transaction(function(tx) {
         tx.executeSql(todos, [], function (tx, result) {
             dataset = result.rows;
+			var linkeditdelete = '';
             for (var i = 0, item = null; i < dataset.length; i++) {
                 item = dataset.item(i);
                 linkeditdelete += '<li>' + item['nombre'] + ' , ' + item['correo'] + 
 				'    ' + '<a href="#" onclick="loadRecord(' + i + ');">edit</a>' + '    ' +
  				'<a href="#" onclick="deleteRecord(' + item['id'] + ');">delete</a></li>'; 
             }
+			$("#contactos").append('<ul data-theme="a">' + linkeditdelete + 
+				'</ul><a href="#ingreso">Añadir nuevo</a>');
         });
     });
-	$("#contactos").append('<ul data-theme="a">' + linkeditdelete + 
-		'</ul><a href="#ingreso">Añadir nuevo</a>');
+	
 }
 
 function onError(tx, error) { alert(error.message); }
