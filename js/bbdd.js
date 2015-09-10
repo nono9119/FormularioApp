@@ -29,7 +29,7 @@ function iniciarDB() {
 
 function crearTabla() {
 	db.transaction(function(tx) { 
-		tx.executeSql(tabla, [], showRecords, onError); 
+		tx.executeSql(tabla, [], cargarContactos, onError); 
 		// Datos de prueba
 		tx.executeSql('INSERT INTO contactos(nombre, correo) VALUES ("Antonio Martinez", "antonio@gmail.com")');
 		tx.executeSql('INSERT INTO contactos(nombre, correo) VALUES ("Jessica Salguero", "jessica@outlook.es")');
@@ -41,14 +41,16 @@ function insertarContacto() {
     var correotemp = $('input:text[id=useremail]').val();
 	
    	db.transaction(function(tx) { 
-		tx.executeSql(ins, [usernametemp, useremailtemp], loadAndReset, onError); 
+		tx.executeSql(ins, [usernametemp, useremailtemp], recargar, onError); 
 	}); 
+	
+	window.location.href = '#inicio';
 }
 
 function borrarContacto(id) {
 	//var id_contacto = id.toString();
     db.transaction(function(tx) { 
-		tx.executeSql(del, [id], showRecords, onError); 
+		tx.executeSql(del, [id], cargarContactos, onError); 
 		alert('El contacto se borro correctamente'); 
 	});
  
@@ -61,13 +63,13 @@ function modificarContacto(id) {
     var useridupdate = $("#id").val();
 	
  	db.transaction(function(tx) { 
-		tx.executeSql(upd, [usernameupdate, useremailupdate, Number(useridupdate)], loadAndReset, onError); 
+		tx.executeSql(upd, [usernameupdate, useremailupdate, Number(useridupdate)], recargar, onError); 
 	});
 }
 
 function borrarTabla() {
 	db.transaction(function(tx) { 
-		tx.executeSql(drop, [], showRecords, onError); 
+		tx.executeSql(drop, [], cargarContactos, onError); 
 	});
  
     resetearFormulario();
@@ -77,8 +79,8 @@ function borrarTabla() {
 function obtenerContacto(id) {
 	var item = dataset.item(i);
  
-    $("#username").val((item['username']).toString());
-    $("#useremail").val((item['useremail']).toString());
+    $("#username").val((item['nombre']).toString());
+    $("#useremail").val((item['correo']).toString());
     $("#id").val((item['id']).toString());
 }
 
@@ -96,7 +98,7 @@ function recargar() {
 function cargarContactos() {
     $("#contactos").html('');
     db.transaction(function(tx) {
-        tx.executeSql(selectAllStatement, [], function (tx, result) {
+        tx.executeSql(todos, [], function (tx, result) {
             dataset = result.rows;
             for (var i = 0, item = null; i < dataset.length; i++) {
                 item = dataset.item(i);
