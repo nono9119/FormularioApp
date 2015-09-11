@@ -43,9 +43,7 @@ function insertarContacto() {
    	db.transaction(function(tx) { 
 		tx.executeSql(ins, [nombretemp, correotemp], recargar, onError); 
 	}); 
-	
 	window.location.href = '#inicio';
-	cargarContactos();
 }
 
 function borrarContacto(id) {
@@ -59,12 +57,12 @@ function borrarContacto(id) {
 }
 
 function modificarContacto(id) {
-	var usernameupdate = $('input:text[id=username]').val().toString();
-    var useremailupdate = $('input:text[id=useremail]').val().toString();
-    var useridupdate = $("#id").val();
+	var nombreupd = $('input:text[id=username]').val().toString();
+    var correoupd = $('input:text[id=useremail]').val().toString();
+    var idupd = $("#id").val();
 	
  	db.transaction(function(tx) { 
-		tx.executeSql(upd, [usernameupdate, useremailupdate, Number(useridupdate)], recargar, onError); 
+		tx.executeSql(upd, [nombreupd, correoupd, Number(idupd)], recargar, onError); 
 	});
 }
 
@@ -98,15 +96,17 @@ function recargar() {
 
 function cargarContactos() {
     $("#contactos").html('');
-	var linkeditdelete = '';
     db.transaction(function(tx) {
         tx.executeSql(todos, [], function (tx, result) {
             dataset = result.rows;
             for (var i = 0, item = null; i < dataset.length; i++) {
                 item = dataset.item(i);
-                linkeditdelete += '<li>' + item['nombre'] + ' , ' + item['correo'] + 
+				var linkeditdelete = '<li>' + item['nombre'] + ' , ' + item['correo'] + '</li>';
+				/*
+                var linkeditdelete = '<li>' + item['nombre'] + ' , ' + item['correo'] + 
 				'    ' + '<a href="#" onclick="loadRecord(' + i + ');">edit</a>' + '    ' +
  				'<a href="#" onclick="deleteRecord(' + item['id'] + ');">delete</a></li>'; 
+				*/
             }
 			$("#contactos").append('<ul data-role="listview">' + linkeditdelete + 
 				'</ul><a href="#ingreso">Añadir nuevo</a>');
